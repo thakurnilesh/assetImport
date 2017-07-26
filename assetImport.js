@@ -100,9 +100,6 @@ for line in transactionLine {
 	if(line._part_number<>"" AND line.assetID_l<>""){
 		append(existingAssets,line.assetID_l);
 	}
-	if(line._part_number == "COBROKE"){
-	 CobrokeFlg = true;
-	}
 	if(line._part_number == "FIVESTREET"){
 	 FiveStreetFlg = true;
 	}
@@ -115,18 +112,7 @@ for line in transactionLine {
 //if(quoteType_quote == "retention" OR quoteType_quote == "backout" OR quoteType_quote == "buyout") {
 if(renewalsHolderString_quote <> "") {
 	i = 0;
-	if(CobrokeFlg == true)
-	{
-		if(FiveStreetFlg == false)
-		{ 
-		    parts[i][0] = "FIVESTREET";
-			parts[i][qtyIndex] = "1";	
-			parts[i][4] = "Active";	
-			parts[i][8] = "Standard";
-			parts[i][10] = "12";
-			i = i+1; 
-		}
-	}
+	j = 0;
 	assets = split(renewalsHolderString_quote,assetDelim);
 	/* ======================================================================== *
 	*	LOOP through line assets and create Parts array for further processing  *
@@ -134,7 +120,10 @@ if(renewalsHolderString_quote <> "") {
 	for asset in assets {
 		if(asset <> "" ) {
 			fields = split(asset,fieldDelim);
-			print asset;
+			if(fields[0] == "COBROKE"){
+				CobrokeFlg = true;
+			}
+			//print asset;
 			//print fields;
 			//If not an existing asset then only add it.
 			if(findinarray(existingAssets, fields[assetIDIndex]) == -1 ){
@@ -247,9 +236,22 @@ if(renewalsHolderString_quote <> "") {
 				//parts[i][UNDERSOLD_MARKET_INDEX] = fields[UNDERSOLD_MARKET_INDEX];
 				//parts[i][PRICE_PER_IMPRESSION_INDEX] = fields[PRICE_PER_IMPRESSION_INDEX];
 				//print parts[i][PRICE_PER_IMPRESSION_INDEX];
-				i = i + 1; 
+				i = i + 1;
+                j = i;				
 				//print parts;
 			}				
+		}
+	}
+	if(CobrokeFlg == true)
+	{
+		if(FiveStreetFlg == false)
+		{ 
+		    parts[j][0] = "FIVESTREET";
+			parts[j][qtyIndex] = "1";	
+			parts[j][4] = "Active";	
+			parts[j][8] = "Standard";
+			parts[j][10] = "12";
+			//i = i+1; 
 		}
 	}
 	
