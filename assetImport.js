@@ -233,8 +233,9 @@ if(renewalsHolderString_quote <> "") {
 				//parts[i][PRICE_PER_IMPRESSION_INDEX] = fields[PRICE_PER_IMPRESSION_INDEX];
 				//print parts[i][PRICE_PER_IMPRESSION_INDEX];
 				i = i + 1;
-               	j = i;				
-				//print parts;
+               			j = i;		
+               			print("Inside the loop 222");		
+				print parts;
 			}				
 		}
 	}
@@ -250,8 +251,8 @@ if(renewalsHolderString_quote <> "") {
 			//i = i+1; 
 		}
 	}
-	
-	//print parts;
+	print("After Fivestreet Added 222"); 
+	print parts;
 	if(DEBUG){
 		print "parts details"; 
 		print parts;
