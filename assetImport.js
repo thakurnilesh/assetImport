@@ -234,8 +234,8 @@ if(renewalsHolderString_quote <> "") {
 				//print parts[i][PRICE_PER_IMPRESSION_INDEX];
 				i = i + 1;
                			j = i;		
-               			print("Inside the loop 222");		
-				print parts;
+               		//	print("Inside the loop 222");		
+				//print parts;
 			}				
 		}
 	}
@@ -243,16 +243,60 @@ if(renewalsHolderString_quote <> "") {
 	{
 		if(isFiveStreetOffered_quote == false)
 		{ 
-		    parts[j][0] = "FIVESTREET";
-			parts[j][qtyIndex] = "1";	
-			parts[j][4] = "Active";	
-			//parts[j][8] = "Standard";
-			//parts[j][10] = "12";
-			//i = i+1; 
+				parts[j][partNumIndex] = "FIVESTREET";
+				parts[j][qtyIndex] = "1";
+				parts[j][assetIDIndex] = "";
+				parts[j][installDate] = "2017-03-17";
+				parts[j][usageEndDate] = "2018-03-16";
+				parts[j][status] = "Active";
+				parts[j][priceIndex] = "";
+				parts[j][leadTypeIndex] = "";
+				parts[j][productTypeIndex] = "Full";
+				parts[j][marketIndex] = "";
+				parts[j][contractTermIndex] = "12"; 
+				parts[j][billingPeriodIndex] = "Monthly";
+				parts[j][promotionIndex] = ""; 
+				parts[j][discountTypeIndex] = "";
+				parts[j][commerceGroupIndex] = ""; 
+				parts[j][brokerPlanAffiliationIndex] = "";
+				parts[j][productEmailIndex] = "123112674@move22.com";
+				parts[j][participantsIndex] = ""; 
+				parts[j][licenseTierRangeIndex] = ""; 
+				parts[j][topConnectorIndex] = "false";
+				parts[j][featuredMortgageIndex] = "false";
+				parts[j][hLCOverrideIndex] = "";
+				parts[j][zouraProductRatePlanChargeIndex] = "";
+				parts[j][zouraIdIndex] = "";
+				parts[j][subscriptionIdIndex] = ""; 
+				parts[j][priceTierIndex] = ""; 
+				parts[j][zuoraProductRatePlanIdIndx] = ""; 
+				parts[j][assetListPriceIndex] = ""; 
+				parts[j][EXTERNAL_ID_INDEX] = ""; 
+				parts[j][subscriptionStartDateIndex] = ""; 
+				parts[j][subscriptionEndDateIndex] = ""; 
+				parts[j][HLC_INDEX] = ""; 
+				parts[j][EXTERNAL_ID_LINE_INDEX] = ""; 
+				parts[j][overrideTermIndex] = ""; 
+				parts[j][licenseTierIndex] = ""; 
+				parts[j][manualDiscountAmountIndex] = ""; 
+				parts[j][manualDiscountTypeIndex] = ""; 
+				parts[j][assetPriceEffectiveDateIndex] = ""; 
+				parts[j][marketKeyIndex] = ""; 
+				parts[j][renewalStatusindex] = ""; 
+				parts[j][costPerActionIndex] = ""; 
+				parts[j][MANUAL_LIST_PRICE_OVERRIDE_INDEX] = ""; 
+				parts[j][NEXT_CHARGE_DATE_INDEX] = ""; 
+				parts[j][marketCodeIndex] = "";
+				parts[j][lastModifiedByIndex] = ""; 
+				parts[j][termEndDateIndex] = ""; 
+				parts[j][MONTHLY_CONTRACTED_UNITS] = "";
+				parts[j][CONTRACTED_UNITS] = "";
+				parts[j][campaignIdIndex] = ""; 
+
 		}
 	}
-	print("After Fivestreet Added 222"); 
-	print parts;
+	//print("After Fivestreet Added 222"); 
+	//print parts;
 	if(DEBUG){
 		print "parts details"; 
 		print parts;
