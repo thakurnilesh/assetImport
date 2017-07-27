@@ -246,8 +246,8 @@ if(renewalsHolderString_quote <> "") {
 				parts[j][partNumIndex] = "FIVESTREET";
 				parts[j][qtyIndex] = "1";
 				parts[j][assetIDIndex] = "";
-				parts[j][installDate] = "2017-03-17";
-				parts[j][usageEndDate] = "2018-03-16";
+				parts[j][installDate] = "getstrdate()";
+				parts[j][usageEndDate] = "2018-07-27";
 				parts[j][status] = "Active";
 				parts[j][priceIndex] = "";
 				parts[j][leadTypeIndex] = "";
@@ -291,7 +291,7 @@ if(renewalsHolderString_quote <> "") {
 				parts[j][termEndDateIndex] = ""; 
 				parts[j][MONTHLY_CONTRACTED_UNITS] = "";
 				parts[j][CONTRACTED_UNITS] = "";
-				parts[j][campaignIdIndex] = ""; 
+				parts[j][campaignIdIndex] = "####BDX#";  
 
 		}
 	}
