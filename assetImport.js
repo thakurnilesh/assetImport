@@ -91,7 +91,6 @@ ASSET_NUMBER_INDEX = 54;
 /*---------------------------------VARIABLES---------------------------*/ 
 parts = String[][];
 returnStr = "";
-FiveStreetFlg = false;
 CobrokeFlg = false;
 existingAssets = string[];
 
@@ -99,9 +98,6 @@ existingAssets = string[];
 for line in transactionLine {
 	if(line._part_number<>"" AND line.assetID_l<>""){
 		append(existingAssets,line.assetID_l);
-	}
-	if(line._part_number == "FIVESTREET"){
-	 FiveStreetFlg = true;
 	}
 }
 
@@ -237,20 +233,20 @@ if(renewalsHolderString_quote <> "") {
 				//parts[i][PRICE_PER_IMPRESSION_INDEX] = fields[PRICE_PER_IMPRESSION_INDEX];
 				//print parts[i][PRICE_PER_IMPRESSION_INDEX];
 				i = i + 1;
-                j = i;				
+               	j = i;				
 				//print parts;
 			}				
 		}
 	}
 	if(CobrokeFlg == true)
 	{
-		if(FiveStreetFlg == false)
+		if(isFiveStreetOffered_quote == false)
 		{ 
 		    parts[j][0] = "FIVESTREET";
 			parts[j][qtyIndex] = "1";	
 			parts[j][4] = "Active";	
-			parts[j][8] = "Standard";
-			parts[j][10] = "12";
+			//parts[j][8] = "Standard";
+			//parts[j][10] = "12";
 			//i = i+1; 
 		}
 	}
