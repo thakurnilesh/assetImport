@@ -109,6 +109,7 @@ for line in transactionLine {
 if(renewalsHolderString_quote <> "") {
 	i = 0;
 	j = 0;
+	fivestreetEmail = ""; 
 	assets = split(renewalsHolderString_quote,assetDelim);
 	/* ======================================================================== *
 	*	LOOP through line assets and create Parts array for further processing  *
@@ -118,6 +119,9 @@ if(renewalsHolderString_quote <> "") {
 			fields = split(asset,fieldDelim);
 			if(fields[0] == "COBROKE"){
 				CobrokeFlg = true;
+				if(fivestreetEmail == ""){
+				fivestreetEmail = fields[productEmailIndex];
+				}
 			}
 			//print asset;
 			//print fields;
@@ -246,12 +250,12 @@ if(renewalsHolderString_quote <> "") {
 				parts[j][partNumIndex] = "FIVESTREET";
 				parts[j][qtyIndex] = "1";
 				parts[j][assetIDIndex] = "";
-				parts[j][installDate] = "getstrdate()";
-				parts[j][usageEndDate] = "2018-07-27";
+				parts[j][installDate] = getstrdate();
+				parts[j][usageEndDate] = "07/28/2018";
 				parts[j][status] = "Active";
 				parts[j][priceIndex] = "";
 				parts[j][leadTypeIndex] = "";
-				parts[j][productTypeIndex] = "Full";
+				parts[j][productTypeIndex] = "";
 				parts[j][marketIndex] = "";
 				parts[j][contractTermIndex] = "12"; 
 				parts[j][billingPeriodIndex] = "Monthly";
@@ -259,7 +263,7 @@ if(renewalsHolderString_quote <> "") {
 				parts[j][discountTypeIndex] = "";
 				parts[j][commerceGroupIndex] = ""; 
 				parts[j][brokerPlanAffiliationIndex] = "";
-				parts[j][productEmailIndex] = "123112674@move22.com";
+				parts[j][productEmailIndex] = fivestreetEmail;
 				parts[j][participantsIndex] = ""; 
 				parts[j][licenseTierRangeIndex] = ""; 
 				parts[j][topConnectorIndex] = "false";
