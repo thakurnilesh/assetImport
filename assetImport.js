@@ -250,12 +250,12 @@ if(renewalsHolderString_quote <> "") {
 				parts[j][partNumIndex] = "FIVESTREET";
 				parts[j][qtyIndex] = "1";
 				parts[j][assetIDIndex] = "";
-				parts[j][installDate] = getstrdate();
+				parts[j][installDate] = "07/28/2017";
 				parts[j][usageEndDate] = "07/28/2018";
 				parts[j][status] = "Active";
 				parts[j][priceIndex] = "";
 				parts[j][leadTypeIndex] = "";
-				parts[j][productTypeIndex] = "";
+				parts[j][productTypeIndex] = "Standard";
 				parts[j][marketIndex] = "";
 				parts[j][contractTermIndex] = "12"; 
 				parts[j][billingPeriodIndex] = "Monthly";

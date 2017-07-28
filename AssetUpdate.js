@@ -92,6 +92,7 @@ partsDBDict = dict("string");
 fieldsalesGroupArr = string[]{"fieldSalesUser","fieldSalesManager","technicalAdminstrator"};
 userGroupArr = split(_system_user_groups, "+");	
 fieldsalesuserflag = "N";
+FivestreetFlg = "N"; 
 for each in fieldsalesGroupArr{
 	if (findinarray(userGroupArr, each) <> -1)
 	{
@@ -130,6 +131,10 @@ if(assetDetails_quote <> ""){
 	for asset in assetsArray {
 		assetPriceEffectiveDateFormat = string[];
 		assetArray 	= split(asset, FIELD_DELIM);
+		if(assetArray[1] == "FIVESTREET")
+		{
+		 FivestreetFlg = "Y"; 
+		}
 		docNum	= assetArray[DOC_NUM_INDEX];
 		if( docNum <> "" ) {
 			price = 0;
@@ -293,45 +298,51 @@ if(assetDetails_quote <> ""){
 			{
 				eligibleForRenew = false;
 			}
-			if((renewalStatus == "Do Not Renew" OR partNumber == "TURBO") AND util.checkRestrictedUserProfiles(currentUserProfile_quote, quoteType_quote) == false)
+			if(FivestreetFlg == "N")
 			{
-				if(eligibleForRenew)
+				if((renewalStatus == "Do Not Renew" OR partNumber == "TURBO") AND util.checkRestrictedUserProfiles(currentUserProfile_quote, quoteType_quote) == false)
 				{
-					res = res + docNum + "~lineType_line~renew" + QUOTE_STR_DELIM;// OTC-174
-					append(docNumArrForRenewalType,docNum);
-					append(partNumArrForRenewalType,partNumber);
-					if(findinarray(uniquePartNumArrForRenewalType,partNumber) == -1){
-						append(uniquePartNumArrForRenewalType,partNumber);
+					if(eligibleForRenew)
+					{
+						res = res + docNum + "~lineType_line~renew" + QUOTE_STR_DELIM;// OTC-174
+						append(docNumArrForRenewalType,docNum);
+						append(partNumArrForRenewalType,partNumber);
+						if(findinarray(uniquePartNumArrForRenewalType,partNumber) == -1){
+							append(uniquePartNumArrForRenewalType,partNumber);
+						}
+					}
+					else
+					{
+						res = res + docNum + "~lineType_line~cancel" + QUOTE_STR_DELIM;
 					}
 				}
 				else
 				{
-					res = res + docNum + "~lineType_line~cancel" + QUOTE_STR_DELIM;
+					/*if(((accountType_quote <> "Realtor Agent" AND accountType_quote <> "Agent Team") AND diff > 90) OR ((accountType_quote == "Realtor Agent" OR accountType_quote == "Agent Team") AND diff > 60) OR renewalStatus == "Do Not Renew")
+					{
+						res = res + docNum + "~lineType_line~amend" + QUOTE_STR_DELIM;
+					}
+					else
+					{
+						res = res + docNum + "~lineType_line~renew" + QUOTE_STR_DELIM;
+					}*/
+					if(eligibleForRenew)
+					{
+						res = res + docNum + "~lineType_line~renew" + QUOTE_STR_DELIM;
+						append(docNumArrForRenewalType,docNum);
+						append(partNumArrForRenewalType,partNumber);
+						if(findinarray(uniquePartNumArrForRenewalType,partNumber) == -1){
+							append(uniquePartNumArrForRenewalType,partNumber);
+						}
+					}
+					else
+					{
+						res = res + docNum + "~lineType_line~amend" + QUOTE_STR_DELIM;
+					}
 				}
 			}
-			else
-			{
-				/*if(((accountType_quote <> "Realtor Agent" AND accountType_quote <> "Agent Team") AND diff > 90) OR ((accountType_quote == "Realtor Agent" OR accountType_quote == "Agent Team") AND diff > 60) OR renewalStatus == "Do Not Renew")
-				{
-					res = res + docNum + "~lineType_line~amend" + QUOTE_STR_DELIM;
-				}
-				else
-				{
-					res = res + docNum + "~lineType_line~renew" + QUOTE_STR_DELIM;
-				}*/
-				if(eligibleForRenew)
-				{
-					res = res + docNum + "~lineType_line~renew" + QUOTE_STR_DELIM;
-					append(docNumArrForRenewalType,docNum);
-					append(partNumArrForRenewalType,partNumber);
-					if(findinarray(uniquePartNumArrForRenewalType,partNumber) == -1){
-						append(uniquePartNumArrForRenewalType,partNumber);
-					}
-				}
-				else
-				{
-					res = res + docNum + "~lineType_line~amend" + QUOTE_STR_DELIM;
-				}
+			else{
+				res = res + docNum + "~lineType_line~add" + QUOTE_STR_DELIM;
 			}
 			//Start CRM-1090
 			if(eligibleForRenew){
