@@ -245,9 +245,10 @@ if(renewalsHolderString_quote <> "") {
 	}
 	if(CobrokeFlg == true)
 	{
-		if(isFiveStreetOffered_quote == false)
+		//if(isFiveStreetOffered_quote == false AND isFiveStreetOffered2 == false )
+		if(NOT (isFiveStreetOffered_quote OR isFiveStreetOffered2) )
 		{ 
-				parts[j][partNumIndex] = "FIVESTREET";
+	     		parts[j][partNumIndex] = "FIVESTREET";
 				parts[j][qtyIndex] = "1";
 				parts[j][assetIDIndex] = "";
 				parts[j][installDate] = util.dateToAPIStringFormat2(0);
@@ -296,7 +297,7 @@ if(renewalsHolderString_quote <> "") {
 				parts[j][MONTHLY_CONTRACTED_UNITS] = "";
 				parts[j][CONTRACTED_UNITS] = "";
 				parts[j][campaignIdIndex] = "####BDX#";  
-
+		 
 		}
 	}
 	//print("After Fivestreet Added 222"); 
