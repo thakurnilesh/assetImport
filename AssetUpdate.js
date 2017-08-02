@@ -131,7 +131,7 @@ if(assetDetails_quote <> ""){
 	for asset in assetsArray {
 		assetPriceEffectiveDateFormat = string[];
 		assetArray 	= split(asset, FIELD_DELIM);
-		if(assetArray[1] == "FIVESTREET")
+		if(assetArray[1] == "FIVESTREET") //CRM-1928
 		{
 		 FivestreetFlg = "Y"; 
 		}
@@ -298,7 +298,7 @@ if(assetDetails_quote <> ""){
 			{
 				eligibleForRenew = false;
 			}
-			if(FivestreetFlg == "N")
+			if(FivestreetFlg == "N") //CRM-1928
 			{
 				if((renewalStatus == "Do Not Renew" OR partNumber == "TURBO") AND util.checkRestrictedUserProfiles(currentUserProfile_quote, quoteType_quote) == false)
 				{

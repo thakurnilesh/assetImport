@@ -108,8 +108,8 @@ for line in transactionLine {
 //if(quoteType_quote == "retention" OR quoteType_quote == "backout" OR quoteType_quote == "buyout") {
 if(renewalsHolderString_quote <> "") {
 	i = 0;
-	j = 0;
-	fivestreetEmail = ""; 
+	j = 0; //CRM-1928
+	fivestreetEmail = ""; //CRM-1928
 	assets = split(renewalsHolderString_quote,assetDelim);
 	/* ======================================================================== *
 	*	LOOP through line assets and create Parts array for further processing  *
@@ -117,7 +117,7 @@ if(renewalsHolderString_quote <> "") {
 	for asset in assets {
 		if(asset <> "" ) {
 			fields = split(asset,fieldDelim);
-			if(fields[0] == "COBROKE"){
+			if(fields[0] == "COBROKE"){ //CRM-1928
 				CobrokeFlg = true;
 				if(fivestreetEmail == ""){
 				fivestreetEmail = fields[productEmailIndex];
@@ -237,16 +237,14 @@ if(renewalsHolderString_quote <> "") {
 				//parts[i][PRICE_PER_IMPRESSION_INDEX] = fields[PRICE_PER_IMPRESSION_INDEX];
 				//print parts[i][PRICE_PER_IMPRESSION_INDEX];
 				i = i + 1;
-               			j = i;		
-               		//	print("Inside the loop 222");		
+               			j = i; //CRM-1928	               			
 				//print parts;
 			}				
 		}
 	}
-	if(CobrokeFlg == true)
+	if(CobrokeFlg == true) //CRM-1928
 	{
-		//if(isFiveStreetOffered_quote == false AND isFiveStreetOffered2 == false )
-		if(NOT (isFiveStreetOffered_quote OR isFiveStreetOffered2) )
+		if(isFiveStreetOffered_quote == false AND isFiveStreetOffered2 == false )
 		{ 
 	     		parts[j][partNumIndex] = "FIVESTREET";
 				parts[j][qtyIndex] = "1";
@@ -300,7 +298,6 @@ if(renewalsHolderString_quote <> "") {
 		 
 		}
 	}
-	//print("After Fivestreet Added 222"); 
 	//print parts;
 	if(DEBUG){
 		print "parts details"; 
