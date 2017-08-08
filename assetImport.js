@@ -110,6 +110,7 @@ if(renewalsHolderString_quote <> "") {
 	i = 0;
 	j = 0; //CRM-1928
 	fivestreetEmail = ""; //CRM-1928
+	fivestreetTerm = ""; 
 	assets = split(renewalsHolderString_quote,assetDelim);
 	/* ======================================================================== *
 	*	LOOP through line assets and create Parts array for further processing  *
@@ -121,6 +122,9 @@ if(renewalsHolderString_quote <> "") {
 				CobrokeFlg = true;
 				if(fivestreetEmail == ""){
 				fivestreetEmail = fields[productEmailIndex];
+				}
+				if(fivestreetTerm == ""){
+				fivestreetTerm = fields[contractTermIndex];
 				}
 			}
 			//print asset;
@@ -256,7 +260,7 @@ if(renewalsHolderString_quote <> "") {
 				parts[j][leadTypeIndex] = "";
 				parts[j][productTypeIndex] = "Standard";
 				parts[j][marketIndex] = "";
-				parts[j][contractTermIndex] = "12"; 
+				parts[j][contractTermIndex] = fivestreetTerm; 
 				parts[j][billingPeriodIndex] = "Monthly";
 				parts[j][promotionIndex] = ""; 
 				parts[j][discountTypeIndex] = "";
