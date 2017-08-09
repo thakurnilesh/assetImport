@@ -114,7 +114,6 @@ if(appliedPromotions_quote <> "" AND isnull(appliedPromotions_quote) == false){
 }
 /* End */
 
-
 for line in transactionLine {
 	
 	if(line._part_number <> "") {
@@ -128,9 +127,23 @@ for line in transactionLine {
 			
 			//result= result + line._document_number + "~fulfillToAccount_line~" + _transaction_customer_id +QUOTE_STR_DELIM;			
 		}
-		if(line.productTypeLineGrid_line == "")
+		if(line._part_number == "FIVESTREET")
 		{
-			result= result + line._document_number + "~accountCategory_line~"+accountCategory_quote+ QUOTE_STR_DELIM;
+				if(line.productTypeLineGrid_line == "")
+			{
+				result= result + line._document_number + "~productTypeLineGrid_line~"+ "Standard"+ QUOTE_STR_DELIM;
+			}
+			if(line.contractTerms_line == "")
+			{
+			result = result + line._document_number + "~contractTerms_line~" + "12" + QUOTE_STR_DELIM;
+			}
+		}
+		else
+		{
+			if(line.productTypeLineGrid_line == "")
+			{
+				result= result + line._document_number + "~accountCategory_line~"+accountCategory_quote+ QUOTE_STR_DELIM;
+			}
 		}
 		//if(line._part_custom_field13 == "true" AND line.selectedOffice_line == "" AND ((line._part_number <> "SELLERLEAD" AND line.productTypeLineGrid_line == "") OR (line._part_number == "SELLERLEAD"))){
 		if(line._part_custom_field13 == "true" AND line.selectedOffice_line == "" AND ((line._part_number <> "SELLERLEADBUNDLE" AND line._part_number <> "SELLERLEAD" AND line.productTypeLineGrid_line == ""))){// removed condition line._part_number <> "COBROKE" AND for CRM-457
