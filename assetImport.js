@@ -93,9 +93,16 @@ parts = String[][];
 returnStr = "";
 CobrokeFlg = false;
 existingAssets = string[];
+cbcFiveStreedFlg = false; //CRM-1928
 
 //Get all existing assetid's
 for line in transactionLine {
+	if(line._part_number == "COBROKE"){
+	if(quoteType_quote == "modify" AND (line.lineType_line == "add" OR line.lineType_line == "renew")){ // CRM-1928
+		cbcFiveStreedFlg = true; 
+	}
+	}
+		
 	if(line._part_number<>"" AND line.assetID_l<>""){
 		append(existingAssets,line.assetID_l);
 	}
@@ -246,7 +253,7 @@ if(renewalsHolderString_quote <> "") {
 			}				
 		}
 	}
-	if(CobrokeFlg == true) //CRM-1928
+	if(cbcFiveStreedFlg == true AND CobrokeFlg == true) //CRM-1928
 	{
 		if(isFiveStreetOffered_quote == false AND isFiveStreetOffered2 == false )
 		{ 
