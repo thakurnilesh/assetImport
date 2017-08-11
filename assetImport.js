@@ -91,18 +91,12 @@ ASSET_NUMBER_INDEX = 54;
 /*---------------------------------VARIABLES---------------------------*/ 
 parts = String[][];
 returnStr = "";
-CobrokeFlg = false;
+//CobrokeFlg = false;
 existingAssets = string[];
 cbcFiveStreedFlg = false; //CRM-1928
 
 //Get all existing assetid's
-for line in transactionLine {
-	if(line._part_number == "COBROKE"){
-	if(quoteType_quote == "modify" AND (line.lineType_line == "add" OR line.lineType_line == "renew")){ // CRM-1928
-		cbcFiveStreedFlg = true; 
-	}
-	}
-		
+for line in transactionLine {	
 	if(line._part_number<>"" AND line.assetID_l<>""){
 		append(existingAssets,line.assetID_l);
 	}
@@ -126,13 +120,22 @@ if(renewalsHolderString_quote <> "") {
 		if(asset <> "" ) {
 			fields = split(asset,fieldDelim);
 			if(fields[0] == "COBROKE"){ //CRM-1928
-				CobrokeFlg = true;
+				//CobrokeFlg = true;
 				if(fivestreetEmail == ""){
 				fivestreetEmail = fields[productEmailIndex];
 				}
 				if(fivestreetTerm == ""){
 				fivestreetTerm = fields[contractTermIndex];
 				}
+				if(quoteType_quote == "Modify" OR quoteType_quote == "Auto-Renew" OR quoteType_quote == "Auto Renewal")
+				{ 
+			        endDate = fields[subscriptionEndDateIndex];
+			        endDate2 = util.aPIToDateFormat(endDate);
+			        diff = getdiffindays(endDate2 , getdate());
+			        if(diff <= 30){
+				     cbcFiveStreedFlg = true; 
+				    }
+				}   
 			}
 			//print asset;
 			//print fields;
@@ -253,7 +256,7 @@ if(renewalsHolderString_quote <> "") {
 			}				
 		}
 	}
-	if(cbcFiveStreedFlg == true AND CobrokeFlg == true) //CRM-1928
+	if(cbcFiveStreedFlg == true) //CRM-1928
 	{
 		if(isFiveStreetOffered_quote == false AND isFiveStreetOffered2 == false )
 		{ 
