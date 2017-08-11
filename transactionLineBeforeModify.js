@@ -84,6 +84,7 @@ EXTENDED_NET_PRICE_INDEX = 59;
 ACCOUNT_CATEGORY_INDEX = 60;
 //Added below line for CRM-1772
 ASSET_NUMBER_INDEX = 61;
+LQTY = "1";
 
 promotionStringQuote = "";
 commerceGroupFromConfig = "";
@@ -129,14 +130,16 @@ for line in transactionLine {
 		}
 		if(line._part_number == "FIVESTREET")
 		{
-				if(line.productTypeLineGrid_line == "")
-			{
+			    result = result + line._document_number + "~license_line~" + LQTY + QUOTE_STR_DELIM;
+			//if(line.productTypeLineGrid_line == "")
+		//	{
 				result= result + line._document_number + "~productTypeLineGrid_line~"+ "Standard"+ QUOTE_STR_DELIM;
-			}
+			//}
 			if(line.contractTerms_line == "")
 			{
 			result = result + line._document_number + "~contractTerms_line~" + "12" + QUOTE_STR_DELIM;
-			}
+			}	
+					
 		}
 		else
 		{
