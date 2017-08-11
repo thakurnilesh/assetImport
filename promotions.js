@@ -41,7 +41,7 @@ jQuery("span[id*=_eligiblePromotions_line]").each(function(){
 	}
 	var promoString = jQuery(this).text();
 	var resultString = '';
-	var firstTime = true;
+	var firstTime = true;	
 	if(promoString.indexOf(".!.")>-1){
 		
 		var promoArray = promoString.split("!!!");
@@ -49,7 +49,6 @@ jQuery("span[id*=_eligiblePromotions_line]").each(function(){
 		
 		//var findposition= jQuery.inArray( "ADVANTAGECAPPEDPRICE", promoArray.toString()); 
 		console.log(promoArray.toString().indexOf("ADVANTAGECAPPEDPRICE"));
-		console.log(promoArray.toString().indexOf("FSFREECBC"));
 		
 		if(promoArray.toString().indexOf("ADVANTAGECAPPEDPRICE") != -1){
 			count =count+1;
@@ -63,7 +62,7 @@ jQuery("span[id*=_eligiblePromotions_line]").each(function(){
 			if(firstTime){
 				
 			   // Removed id else condition always set blank as default  CRM 1526	//if(promoArray.toString().indexOf("ADVANTAGECAPPEDPRICE") == -1){
-				resultString = '<SELECT><OPTION VALUE="' + promoValues[2] + '.!.0!!!" ID="0" ';
+						resultString = '<SELECT><OPTION VALUE="' + promoValues[2] + '.!.0!!!" ID="0" ';
 				if(selectPromo==""){
 					resultString = resultString + ' selected="selected"';
 				}
@@ -85,21 +84,20 @@ jQuery("span[id*=_eligiblePromotions_line]").each(function(){
 			resultString = resultString + '<OPTION ID="' + promoValues[0] + '" VALUE="' + promoValues[2] + '.!.' + promoValues[0] + '!!!' + '"';
 			if(promoValues[0]==selectPromo){
 				resultString = resultString + 'selected="selected"';
+				selectFlag=false;
 			}
 			// Updated for to set default ADVANTAGECAPPEDPRICE CRM 1526 
 			if(promoValues[0] != "ADVANTAGECAPPEDPRICE"){
 				resultString = resultString + '>' + promoValues[0] + ' - ' + promoValues[1] + '%</OPTION>';
 			}
-			else if(promoValues[0] != "FSFREECBC"){  //CRM-1928
-				resultString = resultString + '>' + promoValues[0] + ' - ' + promoValues[1] + '%</OPTION>';
-			    }
 			else{
-				if(selectPromo==""){
+			    if(selectPromo==""){
 					resultString = resultString + ' selected="selected" >' + promoValues[0] + '</OPTION>';
-					//var attrib = "textarea[id*='"+index[1]+"_appliedPromotions_line']";
-					//jQuery(attrib).val(initVal);
-					//document.bmDocForm._line_item_modified.value=true;
-				}				
+					//CRM 1526
+					appliedString=appliedString+'!!!'+index[1]+'.!.'+'ADVANTAGECAPPEDPRICE';
+					jQuery("textarea[id*=appliedPromotions_quote]").val(appliedString);					
+					document.bmDocForm._line_item_modified.value=true;
+				}			
 				 else{
 					resultString = resultString + '>' + promoValues[0] + '</OPTION>';
 				}				
