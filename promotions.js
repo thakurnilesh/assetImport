@@ -11,7 +11,7 @@ if(appliedString){
 	for(i=0;i<appliedArray.length-1;i++){
 		var appliedPromo = appliedArray[i].split(".!.");
 		docnums[i] = appliedPromo[0];
-		promos[i] = appliedPromo[1];
+		promos[i] = appliedPromo[1]; //Holds the promo like "FSFREECBC"
 	}
 }
 /*jQuery("input[name='_line_item_list']").click(function() {
@@ -35,10 +35,12 @@ jQuery("span[id*=_eligiblePromotions_line]").each(function(){
 	var index = jQuery(this).attr('id').split("_");
 	
 	var selectIndex = docnums.indexOf(index[1]); 
+	
 	var selectPromo = "";
 	if(selectIndex>-1){
 		var selectPromo = promos[selectIndex];
 	}
+	
 	var promoString = jQuery(this).text();
 	var resultString = '';
 	var firstTime = true;	
@@ -240,7 +242,7 @@ jQuery("span[id*=_eligibleReasons_line]").each(function(){
 	if(selectIndex>-1){
 		var selectPromo = jQuery("input[id*='"+selectIndex+"_appliedReasons_line']").val();		
 	}
-	//alert(selectPromo);
+	
 	var resultString1 = '';	
 	if(promoString.indexOf(".!.")>-1){		
 		var promoArray = promoString.split("!!!");			
