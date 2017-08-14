@@ -6,6 +6,8 @@ var docnums = [];
 var promos = [];
 var appliedArray = [];
 var count=0;
+cbcFiveStreetFlg = false; 
+
 if(appliedString){
     appliedArray = appliedString.split("!!!");
 	for(i=0;i<appliedArray.length-1;i++){
@@ -55,56 +57,83 @@ jQuery("span[id*=_eligiblePromotions_line]").each(function(){
 		if(promoArray.toString().indexOf("ADVANTAGECAPPEDPRICE") != -1){
 			count =count+1;
 		}
-		//build single-select menu
-		for(i=0; i<promoArray.length-1;i++){
-		
-			var promoValues = promoArray[i].split(".!.");
-			
-			
-			if(firstTime){
-				
-			   // Removed id else condition always set blank as default  CRM 1526	//if(promoArray.toString().indexOf("ADVANTAGECAPPEDPRICE") == -1){
-						resultString = '<SELECT><OPTION VALUE="' + promoValues[2] + '.!.0!!!" ID="0" ';
-				if(selectPromo==""){
-					resultString = resultString + ' selected="selected"';
-				}
-				resultString = resultString + '> </OPTION>';
-				firstTime = false;
-			/*	}
-				else{
-					
-							resultString = '<SELECT><OPTION ID="' + promoValues[0] + '" VALUE="' + promoValues[2] + '.!.' + promoValues[0] + '!!!' + '"';
-				if(selectPromo==""){
-					resultString = resultString + ' selected="selected"';
-				}
-				resultString = resultString + '> </OPTION>';
-				firstTime = false;
-				
-				} */
-				
+		for(j=0; j<promoArray.length-1;j++)
+		{
+			var promoValues = promoArray[j].split(".!.");
+		 	if(promoValues[0] == "FSFREECBC"){
+			  cbcFiveStreetFlg = true; 
 			}
+		}
+		//build single-select menu
+		for(i=0; i<promoArray.length-1;i++)
+		{
+			var promoValues = promoArray[i].split(".!.");
+						
+			if(firstTime)
+			{
+			   // Removed id else condition always set blank as default  CRM 1526	//if(promoArray.toString().indexOf("ADVANTAGECAPPEDPRICE") == -1){
+				resultString = '<SELECT><OPTION VALUE="' + promoValues[2] + '.!.0!!!" ID="0" ';
+				if(selectPromo==""){
+					resultString = resultString + ' selected="selected"';
+				}
+				resultString = resultString + '> </OPTION>';
+				firstTime = false;
+     		}
 			resultString = resultString + '<OPTION ID="' + promoValues[0] + '" VALUE="' + promoValues[2] + '.!.' + promoValues[0] + '!!!' + '"';
-			if(promoValues[0]==selectPromo){
+			if(promoValues[0]==selectPromo)
+			{
 				resultString = resultString + 'selected="selected"';
 				selectFlag=false;
 			}
-			// Updated for to set default ADVANTAGECAPPEDPRICE CRM 1526 
-			if(promoValues[0] != "ADVANTAGECAPPEDPRICE"){
-				resultString = resultString + '>' + promoValues[0] + ' - ' + promoValues[1] + '%</OPTION>';
-			}
-			else{
-			    if(selectPromo==""){
-					resultString = resultString + ' selected="selected" >' + promoValues[0] + '</OPTION>';
-					//CRM 1526
-					appliedString=appliedString+'!!!'+index[1]+'.!.'+'ADVANTAGECAPPEDPRICE';
-					jQuery("textarea[id*=appliedPromotions_quote]").val(appliedString);					
-					document.bmDocForm._line_item_modified.value=true;
-				}			
-				 else{
-					resultString = resultString + '>' + promoValues[0] + '</OPTION>';
-				}				
-			}
+			
+			if(cbcFiveStreetFlg == false)
+			{
+				// Updated for to set default ADVANTAGECAPPEDPRICE CRM 1526 
+				if(promoValues[0] != "ADVANTAGECAPPEDPRICE")
+				{
+					resultString = resultString + '>' + promoValues[0] + ' - ' + promoValues[1] + '%</OPTION>';
+				}
+				else
+				{
+					if(selectPromo=="")
+					{
+						resultString = resultString + ' selected="selected" >' + promoValues[0] + '</OPTION>';
+						//CRM 1526
+						appliedString=appliedString+'!!!'+index[1]+'.!.'+'ADVANTAGECAPPEDPRICE';
+						jQuery("textarea[id*=appliedPromotions_quote]").val(appliedString);					
+						document.bmDocForm._line_item_modified.value=true;
+					}			
+					else
+					{
+						resultString = resultString + '>' + promoValues[0] + '</OPTION>';
+					}				
+				}
 			// END CRM 1526
+			}
+			else
+			{	
+				//CRM-1928
+				if(promoValues[0] != "FSFREECBC")
+				{
+					resultString = resultString + '>' + promoValues[0] + ' - ' + promoValues[1] + '%</OPTION>';
+				}
+				else
+				{
+					if(selectPromo=="")
+					{
+						resultString = resultString + ' selected="selected" >' + promoValues[0] + ' - ' + promoValues[1] + '%</OPTION>';
+						appliedString=appliedString+'!!!'+index[1]+'.!.'+'FSFREECBC';
+						jQuery("textarea[id*=appliedPromotions_quote]").val(appliedString);	
+			            jQuery("textarea[id*=override_line]").val(appliedString);
+                        jQuery("input[id*=" + index[1] + "_override_line]").val("100");						
+						document.bmDocForm._line_item_modified.value=true;
+					}			
+					else
+					{
+						resultString = resultString + '>' + promoValues[0] + ' - ' + promoValues[1] + '%</OPTION>';
+					}				
+				}
+			}
 		}
 		console.log(resultString);
 		//replace string with single select menu.
