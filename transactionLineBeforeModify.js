@@ -130,11 +130,12 @@ for line in transactionLine {
 		}
 		if(line._part_number == "FIVESTREET")
 		{
-			    result = result + line._document_number + "~license_line~" + LQTY + QUOTE_STR_DELIM;
-			//if(line.productTypeLineGrid_line == "")
-		//	{
+			result = result + line._document_number + "~license_line~" + LQTY + QUOTE_STR_DELIM;
+			if(line.productTypeLineGrid_line == "")
+		    {
 				result= result + line._document_number + "~productTypeLineGrid_line~"+ "Standard"+ QUOTE_STR_DELIM;
-			//}
+				result= result + line._document_number + "~productType_line~"+ "Standard"+ QUOTE_STR_DELIM;
+			}
 			if(line.contractTerms_line == "")
 			{
 			result = result + line._document_number + "~contractTerms_line~" + "12" + QUOTE_STR_DELIM;
@@ -142,10 +143,11 @@ for line in transactionLine {
 					
 		}
 		else
-		{
-			if(line.productTypeLineGrid_line == "")
+		{ 
+	       	if(line.productTypeLineGrid_line == "")
 			{
 				result= result + line._document_number + "~accountCategory_line~"+accountCategory_quote+ QUOTE_STR_DELIM;
+				
 			}
 		}
 		//if(line._part_custom_field13 == "true" AND line.selectedOffice_line == "" AND ((line._part_number <> "SELLERLEAD" AND line.productTypeLineGrid_line == "") OR (line._part_number == "SELLERLEAD"))){
