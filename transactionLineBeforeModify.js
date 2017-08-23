@@ -200,7 +200,16 @@ for line in transactionLine {
 						if(attrValue == "PRESALE"){
 							invPool = "presale"; 
 							inventoryPool = upper(invPool);
-						}elif(attrName <> "" AND attrName <> "null" AND NOT(isnull(attrName))){
+						}/*Code Added for CRM-1526: Start*/
+						elif(attrName == "pPLOverride_line"){
+						 effectivePPL=atof(getconfigattrvalue(line._parent_doc_number, "effectivePricePerListingSelected_adv"));
+						 pplOverride1=atof(attrValue);
+						 if(pplOverride1==0.0 AND effectivePPL>0.0){
+						    result= result + line._document_number + "~"+ attrName +"~" + string(effectivePPL) + QUOTE_STR_DELIM;
+						 }
+						}
+						 /*Code Added for CRM-1526: End*/
+						elif(attrName <> "" AND attrName <> "null" AND NOT(isnull(attrName))){
 							result= result + line._document_number + "~"+ attrName +"~" + attrValue + QUOTE_STR_DELIM;
 						}
 						index = index + 1;						
