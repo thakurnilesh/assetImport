@@ -172,7 +172,7 @@ jQuery("td[id*='_lineType_line'] select").change(function(){
 *	Function which updates the Applied Promotions string if any changes are necessary
 *	Inputs: PromoCode promo, Int docnum
 */
-jQuery("td[id*='_eligiblePromotions_line'] select").change(function() {
+jQuery("td[id*='_eligiblePromotions_line'] select").change(function() {	
 //var appliedPromoFunc = function(promotion){
 	var promotion =jQuery(this).val();
 	// Code to populate percentage to Line Discount -- Start
@@ -180,6 +180,7 @@ jQuery("td[id*='_eligiblePromotions_line'] select").change(function() {
 	var lineDiscountField = "input[name*='_"+docNumber+"_override_line']";
 	var lineDiscountTypeField = "select[name*='_"+docNumber+"_discountType_line']";
 	var changedValue = jQuery(this).find('option:selected').text();
+	var lineDiscountTypeField = "select[name*='_"+docNumber+"_discountType_line']";
 	// Added ADVANTAGECAPPEDPRICE in the condition : CRM 1526
 	// if(changedValue !== " " && changedValue !== undefined && changedValue !== "" && changedValue !== "ADVANTAGECAPPEDPRICE"){
 	 if(changedValue !== " " && changedValue !== undefined && changedValue !== ""){	
